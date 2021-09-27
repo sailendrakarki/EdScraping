@@ -1,2 +1,6 @@
 *.yml
 *.code-workspace
+*.exe
+*.xlsx
+interfolder/
+zipextract/
