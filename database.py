@@ -1,7 +1,6 @@
 import cx_Oracle as Orcon
 from cx_Oracle import DatabaseError
-import yaml
-from yaml.error import YAMLError
+
 
 class Database:
     def __init__(self,conf):
@@ -44,11 +43,3 @@ class Database:
         self.cursor.execute(sql,params or ())
         return self.fetchall()
     
-with open('config.yml') as f:
-    try:
-        config = yaml.safe_load(f)
-    except yaml.YAMLError as error:    
-        print(error)
-
-
-Database(config)
