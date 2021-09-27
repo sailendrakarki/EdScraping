@@ -4,10 +4,12 @@ import os
 import sys
 import zipfile
 import pandas as pd
+import csv
+import openpyxl
 
 def extract():
   inital_loc = r"C:\\Users\\skarki\\Downloads\\"  #initlocation
-  final_loc  = r"C:\\Users\skarki\\Desktop\\Report\\" #finallocation
+  final_loc  = r"C:\\Users\skarki\\Desktop\\csv\\" #finallocation
   
   '''
   1. check inital location is valid 
@@ -45,7 +47,6 @@ def extract():
           os.rename(zipextractpath+"\\"+xlsfile,interfilespath+"\\"+xlsfile)
     
     df_total = pd.DataFrame()
-    print("...here")
     for file in os.listdir(interfilespath):                         # loop through Excel files
         print(file)
         if file.endswith('.xlsx'):
@@ -56,10 +57,17 @@ def extract():
             sheets = excel_file.sheet_names
             for sheet in sheets:               # loop through sheets inside an Excel file
                 if str(sheet).startswith("vartable"):
-                  
-                  df = excel_file.parse(sheet_name = sheet)
+                  df = excel_file.parse(sheet_name = sheet,index_col=0)
                   df_total = df_total.append(df)
     df_total.to_excel('combined_file.xlsx')
+    excelopen = openpyxl.load_workbook('combined_file.xlsx')
+    excelsheet = excelopen.active
+    
+    col = csv.writer(open("IPEDS_METADATA.csv",'w',newline=""))
+    
+    for r in excelsheet.rows:
+      col.writerow([cell.value for cell in r])
+      
     
   else:
     print("location are not avilable")

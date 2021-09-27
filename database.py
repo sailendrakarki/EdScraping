@@ -2,7 +2,7 @@ import cx_Oracle as Orcon
 from cx_Oracle import DatabaseError
 
 
-class Database:
+class Database(object):
     def __init__(self,conf):
         self._dns_tns = Orcon.makedsn(conf['HOST'],conf['PORT'],conf['SERVICE_NAME'])
         self._conn = Orcon.connect(conf['USER'], conf['PASSWORD'], self._dns_tns)

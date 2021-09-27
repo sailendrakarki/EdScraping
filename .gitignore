@@ -1,6 +1,9 @@
+config.py
+__pycache__/
 *.yml
 *.code-workspace
 *.exe
 *.xlsx
+*.csv
 interfolder/
 zipextract/
