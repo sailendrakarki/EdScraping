@@ -50,14 +50,14 @@ def extract():
         
         if xlsfile.startswith("IPEDS") and xlsfile.endswith(".accdb"):
           if os.path.exists(Accessdbpath+"\\"+xlsfile):
-           os.remove(Accessdbpath+"\\"+xlsfile)
-           
+           os.remove(Accessdbpath+"\\"+xlsfile)      
           os.rename(zipextractpath+"\\"+xlsfile,Accessdbpath+"\\"+xlsfile)
         
+        if xlsfile.endswith(".docx"):
+          os.remove(zipextractpath+"\\"+xlsfile)
     
     df_total = pd.DataFrame()
-    for file in os.listdir(interfilespath):                         # loop through Excel files
-        print(file)
+    for file in os.listdir(interfilespath):                         # loop through Excel files       
         if file.endswith('.xlsx'):
             xlspath = path.join(interfilespath,file)
             
