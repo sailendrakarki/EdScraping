@@ -24,9 +24,11 @@ def extract():
   if path.isdir(inital_loc) and path.isdir(final_loc):
     zipextract = "zipextract\\"
     interfiles = "interfolder\\"
+    Accessdb = "Access\\"
     
     interfilespath = path.join(os.getcwd(),interfiles)
     zipextractpath = path.join(os.getcwd(),zipextract)
+    Accessdbpath = path.join(os.getcwd(),Accessdb)
     
     if not path.isdir(interfilespath):
       os.mkdir(interfilespath,0o777) 
@@ -38,13 +40,20 @@ def extract():
         if file.startswith("IPEDS") and file.endswith(".zip"):
           with zipfile.ZipFile(inital_loc+"\\"+file,"r") as zip_ref:
             zip_ref.extractall(zipextract)
-           
+    
+         
     for xlsfile in os.listdir(zipextractpath):
         if xlsfile.startswith("IPEDS") and xlsfile.endswith(".xlsx"):
           if os.path.exists(interfilespath+"\\"+xlsfile):
            os.remove(interfilespath+"\\"+xlsfile)
-           
           os.rename(zipextractpath+"\\"+xlsfile,interfilespath+"\\"+xlsfile)
+        
+        if xlsfile.startswith("IPEDS") and xlsfile.endswith(".accdb"):
+          if os.path.exists(Accessdbpath+"\\"+xlsfile):
+           os.remove(Accessdbpath+"\\"+xlsfile)
+           
+          os.rename(zipextractpath+"\\"+xlsfile,Accessdbpath+"\\"+xlsfile)
+        
     
     df_total = pd.DataFrame()
     for file in os.listdir(interfilespath):                         # loop through Excel files
