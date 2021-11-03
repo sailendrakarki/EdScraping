@@ -52,6 +52,7 @@ for links in linkslist:
             links.click()
             print("{} Downloaded!\n".format(fileName))
     links = ''
-driver.quit()
+#os.times.sleep(10) 
+#driver.quit()
 print("All Download are completed")
 

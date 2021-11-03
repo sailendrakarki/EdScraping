@@ -7,7 +7,7 @@ class Database(object):
         self._dns_tns = Orcon.makedsn(conf['HOST'],conf['PORT'],conf['SERVICE_NAME'])
         self._conn = Orcon.connect(conf['USER'], conf['PASSWORD'], self._dns_tns)
         self._cursor = self._conn.cursor()
-
+        
     def __enter__(self):
         return self
 
@@ -28,7 +28,7 @@ class Database(object):
     def close(self,commit= True):
         if commit:
             self.commit()
-        self.connection.closer()
+        self.connection.close()
     
     def execute(self,sql,params=None):
         self.cursor.execute(sql,params or ())
